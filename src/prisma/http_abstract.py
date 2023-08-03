@@ -74,13 +74,13 @@ class AbstractHTTP(ABC, Generic[Session, Response]):
     @property
     def session(self) -> Session:
         session = self._session
-        if session is _NoneType:
+        if session is _NoneType or session is None:
             self.open()
             return cast(Session, self._session)
 
         # TODO: make this not strict, just open a new session
-        if session is None:
-            raise HTTPClientClosedError()
+        # if session is None:
+            # raise HTTPClientClosedError()
 
         return cast(Session, session)
 
